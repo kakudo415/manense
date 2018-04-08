@@ -1,2 +1,2 @@
 # manense
-## *man*age exp*ense*
+## manage expense
