@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"os"
 
 	"./page"
 	"./session"
@@ -12,5 +13,5 @@ func main() {
 	http.HandleFunc("/", page.Index)
 	http.HandleFunc("/signin", session.Signin)
 	http.HandleFunc("/signout", session.Signout)
-	http.ListenAndServe(":8000", nil)
+	http.ListenAndServe(":"+os.Getenv("MANENSE_PORT"), nil)
 }
