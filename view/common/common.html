@@ -2,6 +2,12 @@
 <div id="header">
   <div>
     <a href="{{ .Common.URL }}">{{ .Common.Name }}</a>
+    {{ if .User }}
+    <a href="#">{{ .User.Name }}</a>
+    <a href="{{ .Common.URL }}/signout">Sign out</a>
+    {{ else }}
+    <a href="{{ .Common.OAuthURL }}">Sign in</a>
+    {{ end }}
   </div>
 </div>
 {{ end }}

@@ -9,10 +9,6 @@
 </head>
 <body>
   {{ template "HEADER" . }}
-  <div id="content">
-    {{ range .Books }}
-      <a href="{{ .ID }}">{{ .UserName }} -> {{ .Balance }}</a>
-    {{ end }}
-  </div>
+  <div id="content"></div>
 </body>
 </html>

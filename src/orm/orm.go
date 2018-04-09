@@ -16,16 +16,15 @@ type Users struct {
 
 // Books struct
 type Books struct {
-	ID       uint64 `gorm:"primary_key"`
-	Name     string `gorm:"not null"`
-	UserID   string `gorm:"not null"`
-	UserName string `gorm:"not null"`
-	Balance  int    `gorm:"not null"`
+	ID      uint64 `sql:"type:BIGINT UNSIGNED" gorm:"PRIMARY_KEY"`
+	Name    string `gorm:"not null"`
+	UserID  string `gorm:"not null"`
+	Balance int    `gorm:"not null"`
 }
 
 // Expenses struct
 type Expenses struct {
-	ID     uint64 `gorm:"primary_key"`
+	ID     uint64 `sql:"type:BIGINT UNSIGNED" gorm:"PRIMARY_KEY"`
 	Name   string `gorm:"not null"`
 	BookID uint64 `gorm:"not null"`
 	Income int    `gorm:"not null"`
@@ -33,7 +32,7 @@ type Expenses struct {
 
 func init() {
 	Connect().AutoMigrate(new(Users))
-	Connect().AutoMigrate(new(Books)).AddForeignKey("user_id", "users(id)", "CASCADE", "CASCADE").AddForeignKey("user_name", "users(name)", "CASCADE", "CASCADE")
+	Connect().AutoMigrate(new(Books)).AddForeignKey("user_id", "users(id)", "CASCADE", "CASCADE")
 	Connect().AutoMigrate(new(Expenses)).AddForeignKey("book_id", "books(id)", "CASCADE", "CASCADE")
 }
 

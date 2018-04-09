@@ -9,6 +9,12 @@ import (
 var store = sessions.NewCookieStore([]byte("SECRET"))
 var name = "MANENSE"
 
+// Exist session
+func Exist(w http.ResponseWriter, r *http.Request) bool {
+	var s = Get(w, r)
+	return s.Values["ID"] != nil
+}
+
 // Get session
 func Get(w http.ResponseWriter, r *http.Request) *sessions.Session {
 	var s, e = store.Get(r, name)
