@@ -4,12 +4,22 @@ import (
 	"os"
 
 	"github.com/jinzhu/gorm"
+	// MySQL
+	_ "github.com/go-sql-driver/mysql"
 )
 
 // Users M
 type Users struct {
-	ID   string
-	Name string
+	ID     string `json:"id"`
+	Name   string `json:"name"`
+	GName  string `json:"given_name"`
+	FName  string `json:"family_name"`
+	Icon   string `json:"picture"`
+	Locale string `json:"locale"`
+}
+
+func init() {
+	Connect().AutoMigrate(new(Users))
 }
 
 // Connect GORM

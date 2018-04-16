@@ -1,0 +1,12 @@
+{{ define "HEADER" }}
+<div id="header">
+  <div>
+    {{ if .User.ID }}
+    <span>{{ .User.Name }}</span>
+    <a href="/signout">Sign out</a>
+    {{ else }}
+    <a href="{{ .Common.AURL }}">Sign in</a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

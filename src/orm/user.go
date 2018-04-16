@@ -1,7 +1,13 @@
 package orm
 
-// NewUser func
-func NewUser(i string, n string) {
-	var u = Users{ID: i, Name: n}
-	Connect().FirstOrCreate(&u)
+// New User
+func (u Users) New() {
+	Connect().FirstOrCreate(&u).Close()
+}
+
+// GetUser func
+func GetUser(i string) (u Users) {
+	u.ID = i
+	Connect().First(&u).Close()
+	return u
 }
