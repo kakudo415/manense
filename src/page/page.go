@@ -2,10 +2,13 @@ package page
 
 import (
 	"encoding/json"
+	"fmt"
 	"html/template"
 	"io/ioutil"
 	"net/http"
 	"os"
+	"sort"
+	"strconv"
 
 	"../orm"
 	"../session"
@@ -19,7 +22,8 @@ type HomeView struct {
 		Name string
 		AURL string // OAuth URL
 	}
-	User orm.Users
+	User     orm.Users
+	Expenses []orm.Expenses
 }
 
 // Home page
@@ -29,9 +33,45 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	v.Common.Name = "manense"
 	v.Common.AURL = oauth.AuthCodeURL(oauth.RedirectURL)
 	if session.Exist(w, r) {
-		v.User = orm.GetUser(session.Get(w, r))
+		var userID = session.Get(w, r)
+		v.User = orm.GetUser(userID)
+		v.Expenses = orm.GetExpenseList(userID)
+		sort.Slice(v.Expenses, func(i, j int) bool { return v.Expenses[i].Time.After(v.Expenses[j].Time) })
 	}
 	t.Execute(w, v)
+}
+
+// New Expense
+func New(w http.ResponseWriter, r *http.Request) {
+	if session.Exist(w, r) && r.Method == "POST" {
+		r.ParseForm()
+		var i, e = strconv.ParseInt(r.Form["expense-income"][0], 10, 64)
+		if e != nil {
+			return
+		}
+		var ne = orm.NewExpense(session.Get(w, r), r.Form["expense-name"][0], i)
+		var u = orm.GetUser(session.Get(w, r))
+		u.Balance += i
+		u.Update()
+		w.Write([]byte(fmt.Sprintf("{ \"uuid\" : \"%d\" }", ne.UUID)))
+	}
+}
+
+// Erase Expense
+func Erase(w http.ResponseWriter, r *http.Request) {
+	if session.Exist(w, r) && r.Method == "POST" {
+		r.ParseForm()
+		var i, e = strconv.ParseUint(r.Form["expense-uuid"][0], 10, 64)
+		if e != nil {
+			return
+		}
+		var eraseExpense = orm.GetExpense(i)
+		orm.EraseExpense(i)
+		var u = orm.GetUser(session.Get(w, r))
+		u.Balance -= eraseExpense.Income
+		u.Update()
+		w.Write([]byte(strconv.FormatInt(u.Balance, 10)))
+	}
 }
 
 var oauth = oauth2.Config{
@@ -61,6 +101,8 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		u.New()
+		u.Update()
+		orm.BalanceInquiry(u.ID)
 		session.New(w, r, u.ID)
 	}
 	http.Redirect(w, r, "/", http.StatusFound)

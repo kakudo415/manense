@@ -1,0 +1,36 @@
+@charset "UTF-8";
+html, body, div, span, a, p, input,
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: inherit;
+  background: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: 1em;
+  border: none;
+  outline: none;
+  text-decoration: inherit;
+}
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", sans-serif;
+  font-size: 16px;
+}
+body {
+  padding: 3rem 0 0;
+}
+/* HEADER CSS */
+#header {
+  width: 100%;
+  background: #FFC107;
+  position: fixed;
+  top: 0;
+  z-index: 5;
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1);
+}
+  #header > div {
+    max-width: 960px;
+    padding: 1rem;
+    margin: 0 auto;
+  }

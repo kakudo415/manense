@@ -1,11 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{ template "META" . }}
+  <link rel="stylesheet" href="/static/home.css">
   <title>{{ .Common.Name }}</title>
 </head>
 <body>
-  {{ template "HEADER" . }}
+  {{ if .User.ID }}
+  <div id="header">
+    <div>
+      <span>{{ .User.Name }} @ manense OßT</span>
+      <span id="balance">{{ .User.Balance }} 円</span>
+    </div>
+  </div>
+  <div id="content">
+    <div id="new-expense">
+      <input type="text" name="expense-name" placeholder="内容" id="expense-name">
+      <input type="number" name="expense-income" placeholder="金額" id="expense-income">
+      <input type="button" onclick="newExpense();" id="expense-button">
+    </div>
+    <div id="expenses">
+    {{ range .Expenses }}
+      <div id="{{ .UUID }}" class="expense"><span class="expense-name">{{ .Name }}</span><span class="expense-time">{{ .Time.Year }} {{ .Time.Month }} {{ .Time.Day }}</span><span class="expense-income">{{ .Income }} 円</span><input class="expense-erase" type="button" onclick="eraseExpense('{{ .UUID }}');"></div>
+    {{ end }}
+    </div>
+    <script>
+      let expenses = document.getElementById("expenses");
+      let expenseName = document.getElementById("expense-name");
+      let expenseIncome = document.getElementById("expense-income");
+      let expenseButton = document.getElementById("expense-button");
+      let userBalance = document.getElementById("balance");
+      function newExpense() {
+        var AJAX = new XMLHttpRequest();
+        AJAX.open("POST", "/new", true);
+        AJAX.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        AJAX.send("expense-name=" + expenseName.value + "&expense-income=" + expenseIncome.value);
+        AJAX.onreadystatechange = () => {
+          if (AJAX.readyState == 4 && AJAX.status == 200) {
+            
+          }
+        }
+      }
+      function eraseExpense(uuid) {
+        if (confirm("本当に削除してもいいですか？")) {
+          var AJAX = new XMLHttpRequest();
+          AJAX.open("POST", "/erase", true);
+          AJAX.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          AJAX.send("expense-uuid=" + uuid);
+          AJAX.onreadystatechange = () => {
+            if (AJAX.readyState == 4 && AJAX.status == 200) {
+              document.getElementById(uuid).remove();
+              userBalance.innerText = AJAX.responseText + " 円";
+            }
+          }
+        }
+      }
+    </script>
+  {{ else }}
+  {{ end }}
+  </div>
 </body>
 </html>

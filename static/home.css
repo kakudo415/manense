@@ -1,0 +1,84 @@
+  #header > div {
+    position: relative;
+  }
+    #balance {
+      padding: 0 1rem;
+      position: absolute;
+      right: 2.25rem;
+    }
+#content {
+  margin: 0 auto;
+}
+  div.expense {
+    padding: .5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+  }
+  div.expense:last-of-type {
+    border: none;
+  }
+    div.expense > span {
+      line-height: 1.5rem;
+    }
+    div.expense > span.expense-name {
+      width: 448px;
+      border-right: 1px solid rgba(0, 0, 0, .1);
+    }
+    div.expense > span.expense-time {
+      width: 160px;
+      text-align: center;
+    }
+    div.expense > span.expense-income {
+      width: 300px;
+      padding: 0 1rem;
+      text-align: right;
+      border-left: 1px solid rgba(0, 0, 0, .1);
+    }
+    div.expense > input.expense-erase {
+      height: 1.25rem;
+      width: 1.25rem;
+      background: #F44336;
+      border-radius: 50%;
+    }
+    div.expense > input.expense-erase:hover {
+      cursor: pointer;
+      background: #D32F2F;
+    }
+  #new-expense {
+    padding: .5rem 1rem;
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+  }
+    #new-expense > input {
+      line-height: 1.5rem;
+    }
+    #expense-name {
+      width: 448px;
+      border-right: 1px solid rgba(0, 0, 0, .1);
+    }
+    #expense-income {
+      width: 300px;
+      padding: 0 1rem;
+      position: absolute;
+      right: 2.25rem;
+      border-left: 1px solid rgba(0, 0, 0, .1);
+    }
+    #expense-button {
+      height: 1.25rem;
+      width: 1.25rem;
+      position: absolute;
+      right: 1rem;
+      background: #8BC34A;
+      border-radius: 50%;
+    }
+    #expense-button:hover {
+      cursor: pointer;
+      background: #689F38;
+    }
+@media all and (min-width: 1024px) {
+#content {
+  width: 960px;
+}
+}

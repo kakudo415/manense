@@ -11,8 +11,11 @@ import (
 func main() {
 	go REPL()
 	http.HandleFunc("/", page.Home)
+	http.HandleFunc("/new", page.New)
+	http.HandleFunc("/erase", page.Erase)
 	http.HandleFunc("/signin", page.Signin)
 	http.HandleFunc("/signout", page.Signout)
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	http.ListenAndServe(os.Getenv("MANENSE_ADDRESS"), nil)
 }
 
