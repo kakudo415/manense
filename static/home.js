@@ -27,7 +27,7 @@ function newExpense() {
     if (AJAX.readyState == 4 && AJAX.status == 200) {
       var res = JSON.parse(AJAX.responseText);
       userBalance.innerText = res.balance + ' 円';
-      expenses.innerHTML = `<div id="${res.uuid}" class="expense"><span class="expense-name">${expenseName.value}</span><span class="expense-time">${res.time}</span><span class="expense-income">${expenseIncome.value} 円</span><input class="expense-erase" type="button" onclick="eraseExpense("${res.uuid}");"></div>` + expenses.innerHTML;
+      expenses.innerHTML = `<div id="${res.uuid}" class="expense"><span class="expense-name">${expenseName.value}</span><span class="expense-time">${res.time}</span><span class="expense-income">${expenseIncome.value} 円</span><button class="expense-erase" onclick="eraseExpense("${res.uuid}");"></button></div>` + expenses.innerHTML;
     }
   }
 }
