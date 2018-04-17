@@ -53,7 +53,7 @@ func New(w http.ResponseWriter, r *http.Request) {
 		var u = orm.GetUser(session.Get(w, r))
 		u.Balance += i
 		u.Update()
-		w.Write([]byte(fmt.Sprintf("{ \"uuid\" : \"%d\" }", ne.UUID)))
+		w.Write([]byte(fmt.Sprintf("{ \"uuid\": \"%d\", \"time\": \"%d %s %d\"}", ne.UUID, ne.Time.Year(), ne.Time.Month().String(), ne.Time.Day())))
 	}
 }
 
