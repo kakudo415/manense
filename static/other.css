@@ -5,7 +5,6 @@
   background: #FFC107;
 }
   #expense-header > div {
-    padding: 1rem;
     position: relative;
   }
     #balance {
@@ -14,27 +13,6 @@
 #content {
   margin: 0 auto;
 }
-  #new-expense {
-    position: relative;
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
-  }
-    #expense-name {
-      border-right: 1px solid rgba(0, 0, 0, .1);
-    }
-    #expense-income {
-      position: absolute;
-      border-left: 1px solid rgba(0, 0, 0, .1);
-      text-align: right;
-    }
-    #expense-button {
-      position: absolute;
-      background: #8BC34A;
-      border-radius: 50%;
-    }
-    #expense-button:hover {
-      cursor: pointer;
-      background: #689F38;
-    }
   div.expense {
     display: flex;
     align-items: center;
@@ -69,31 +47,11 @@
     padding: 1rem;
   }
     #balance {
-      padding: 0 1rem;
-      right: 2.25rem;
+      right: 1rem;
     }
 #content {
   width: 960px;
 }
-  #new-expense {
-    padding: .5rem 1rem;
-  }
-    #new-expense > input {
-      line-height: 1.5rem;
-    }
-    #expense-name {
-      width: 448px;
-    }
-    #expense-income {
-      width: 300px;
-      padding: 0 1rem;
-      right: 2.25rem;
-    }
-    #expense-button {
-      height: 1.5rem;
-      width: 1.5rem;
-      right: 1rem;
-    }
   div.expense {
     padding: .5rem 1rem;
   }
@@ -108,7 +66,6 @@
     }
     div.expense > span.expense-income {
       width: 300px;
-      padding: 0 1rem;
     }
     div.expense > button.expense-erase {
       height: 1.5rem;
@@ -120,28 +77,10 @@
     padding: .5rem;
   }
     #balance {
-      right: 2.25rem;
+      right: .5rem;
     }
-    #new-expense {
-      padding: .5rem;
-    }
-      #new-expense > input {
-        line-height: 1.25rem;
-      }
-      #expense-name {
-        width: 50%;
-      }
-      #expense-income {
-        width: 30%;
-        right: 2.25rem;
-      }
-      #expense-button {
-        height: 1.25rem;
-        width: 1.25rem;
-        right: .5rem;
-      }
   div.expense {
-    padding: .5rem;
+    padding: .25rem .5rem;
   }
     div.expense > span {
       line-height: 1.25rem;
@@ -155,7 +94,6 @@
     }
     div.expense > span.expense-income {
       width: 30%;
-      padding: 0 .25rem;
     }
     div.expense > button.expense-erase {
       height: 1.25rem;
