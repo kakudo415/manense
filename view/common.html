@@ -7,7 +7,7 @@
 {{ define "HEADER" }}
 <div id="header">
   <div>
-    <span>{{ .Common.Name }} OßT</span>
+    <a href="{{ .Common.URL }}">{{ .Common.Name }} OßT</a>
     {{ if .User.ID }}
     <a href="/signout">Sign out</a>
     {{ else }}

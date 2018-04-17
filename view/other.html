@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  {{ template "META" . }}
+  <link rel="stylesheet" href="/static/other.css">
+  <title>{{ .Common.Name }}</title>
+</head>
+<body>
+  {{ template "HEADER" . }}
+  {{ if .User.ID }}
+  <div id="expense-header">
+    <div>
+      <span>{{ .Other.Name }}</span>
+      <span id="balance">{{ .Other.Balance }} 円</span>
+    </div>
+  </div>
+  <div id="content">
+    <div id="expenses">
+    {{ range .Expenses }}
+      <div id="{{ .UUID }}" class="expense"><span class="expense-name">{{ .Name }}</span><span class="expense-time">{{ .Time.Year }} {{ .Time.Month }} {{ .Time.Day }}</span><span class="expense-income">{{ .Income }} 円</span></div>
+    {{ end }}
+    </div>
+    <script src="/static/home.js"></script>
+  {{ else }}
+  {{ end }}
+  </div>
+</body>
+</html>

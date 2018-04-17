@@ -9,6 +9,7 @@ import (
 	"os"
 	"sort"
 	"strconv"
+	"strings"
 
 	"../orm"
 	"../session"
@@ -20,9 +21,22 @@ import (
 type HomeView struct {
 	Common struct {
 		Name string
+		URL  string
 		AURL string // OAuth URL
 	}
 	User     orm.Users
+	Expenses []orm.Expenses
+}
+
+// OtherView data
+type OtherView struct {
+	Common struct {
+		Name string
+		URL  string
+		AURL string
+	}
+	User     orm.Users
+	Other    orm.Users
 	Expenses []orm.Expenses
 }
 
@@ -31,12 +45,29 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	var t = template.Must(template.ParseFiles("view/home.html", "view/common.html"))
 	var v = new(HomeView)
 	v.Common.Name = "manense"
+	v.Common.URL = os.Getenv("MANENSE_URL")
 	v.Common.AURL = oauth.AuthCodeURL(oauth.RedirectURL)
 	if session.Exist(w, r) {
 		var userID = session.Get(w, r)
 		v.User = orm.GetUser(userID)
 		v.Expenses = orm.GetExpenseList(userID)
 		sort.Slice(v.Expenses, func(i, j int) bool { return v.Expenses[i].Time.After(v.Expenses[j].Time) })
+	}
+	t.Execute(w, v)
+}
+
+// Other Expense page
+func Other(w http.ResponseWriter, r *http.Request) {
+	var t = template.Must(template.ParseFiles("view/other.html", "view/common.html"))
+	var v = new(OtherView)
+	v.Common.Name = "manense"
+	v.Common.URL = os.Getenv("MANENSE_URL")
+	v.Common.AURL = oauth.AuthCodeURL(oauth.RedirectURL)
+	if session.Exist(w, r) {
+		var userID = session.Get(w, r)
+		v.User = orm.GetUser(userID)
+		v.Other = orm.GetUser(strings.TrimPrefix(r.URL.Path, "/other/"))
+		v.Expenses = orm.GetExpenseList(v.Other.ID)
 	}
 	t.Execute(w, v)
 }

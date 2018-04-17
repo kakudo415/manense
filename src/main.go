@@ -13,6 +13,7 @@ func main() {
 	http.HandleFunc("/", page.Home)
 	http.HandleFunc("/new", page.New)
 	http.HandleFunc("/erase", page.Erase)
+	http.HandleFunc("/other/", page.Other)
 	http.HandleFunc("/signin", page.Signin)
 	http.HandleFunc("/signout", page.Signout)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
