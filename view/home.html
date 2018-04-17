@@ -22,7 +22,7 @@
     </div>
     <div id="expenses">
     {{ range .Expenses }}
-      <div id="{{ .UUID }}" class="expense"><span class="expense-name">{{ .Name }}</span><span class="expense-time">{{ .Time.Year }} {{ .Time.Month }} {{ .Time.Day }}</span><span class="expense-income">{{ .Income }} 円</span><input class="expense-erase" type="button" onclick="eraseExpense('{{ .UUID }}');"></div>
+      <div id="{{ .UUID }}" class="expense"><span class="expense-name">{{ .Name }}</span><span class="expense-time">{{ .Time.Year }} {{ .Time.Month }} {{ .Time.Day }}</span><span class="expense-income">{{ .Income }} 円</span><button class="expense-erase" onclick="eraseExpense('{{ .UUID }}');"></button></div>
     {{ end }}
     </div>
     <script src="/static/home.js"></script>
