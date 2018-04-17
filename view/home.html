@@ -18,7 +18,7 @@
     <div id="new-expense">
       <input type="text" name="expense-name" autocomplete="off" placeholder="内容" id="expense-name">
       <input type="number" name="expense-income" autocomplete="off" placeholder="金額" id="expense-income">
-      <input type="button" onclick="newExpense();" id="expense-button">
+      <button onclick="newExpense();" id="expense-button"></button>
     </div>
     <div id="expenses">
     {{ range .Expenses }}
