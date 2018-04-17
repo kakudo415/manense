@@ -6,17 +6,18 @@
   <title>{{ .Common.Name }}</title>
 </head>
 <body>
+  {{ template "HEADER" . }}
   {{ if .User.ID }}
-  <div id="header">
+  <div id="expense-header">
     <div>
-      <span>{{ .User.Name }} @ manense OßT</span>
+      <span>{{ .User.Name }}</span>
       <span id="balance">{{ .User.Balance }} 円</span>
     </div>
   </div>
   <div id="content">
     <div id="new-expense">
-      <input type="text" name="expense-name" placeholder="内容" id="expense-name">
-      <input type="number" name="expense-income" placeholder="金額" id="expense-income">
+      <input type="text" name="expense-name" autocomplete="off" placeholder="内容" id="expense-name">
+      <input type="number" name="expense-income" autocomplete="off" placeholder="金額" id="expense-income">
       <input type="button" onclick="newExpense();" id="expense-button">
     </div>
     <div id="expenses">

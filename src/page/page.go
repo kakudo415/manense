@@ -47,13 +47,15 @@ func New(w http.ResponseWriter, r *http.Request) {
 		r.ParseForm()
 		var i, e = strconv.ParseInt(r.Form["expense-income"][0], 10, 64)
 		if e != nil {
+			w.WriteHeader(400)
+			w.Write([]byte(""))
 			return
 		}
 		var ne = orm.NewExpense(session.Get(w, r), r.Form["expense-name"][0], i)
 		var u = orm.GetUser(session.Get(w, r))
 		u.Balance += i
 		u.Update()
-		w.Write([]byte(fmt.Sprintf("{ \"uuid\": \"%d\", \"time\": \"%d %s %d\"}", ne.UUID, ne.Time.Year(), ne.Time.Month().String(), ne.Time.Day())))
+		w.Write([]byte(fmt.Sprintf("{ \"uuid\": \"%d\", \"time\": \"%d %s %d\" }", ne.UUID, ne.Time.Year(), ne.Time.Month().String(), ne.Time.Day())))
 	}
 }
 
@@ -63,6 +65,8 @@ func Erase(w http.ResponseWriter, r *http.Request) {
 		r.ParseForm()
 		var i, e = strconv.ParseUint(r.Form["expense-uuid"][0], 10, 64)
 		if e != nil {
+			w.WriteHeader(400)
+			w.Write([]byte(""))
 			return
 		}
 		var eraseExpense = orm.GetExpense(i)

@@ -17,20 +17,17 @@ html {
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", sans-serif;
   font-size: 16px;
 }
-body {
-  padding: 3rem 0 0;
-}
 /* HEADER CSS */
 #header {
-  width: 100%;
   background: #FFC107;
-  position: fixed;
-  top: 0;
-  z-index: 5;
-  box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1);
 }
   #header > div {
     max-width: 960px;
-    padding: 1rem;
     margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+  }
+  #header > div > *:first-child {
+    margin: 0 auto 0 0;
   }

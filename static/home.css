@@ -1,4 +1,7 @@
-  #header > div {
+#expense-header {
+
+}
+  #expense-header > div {
     position: relative;
   }
     #balance {
@@ -64,6 +67,7 @@
       position: absolute;
       right: 2.25rem;
       border-left: 1px solid rgba(0, 0, 0, .1);
+      text-align: right;
     }
     #expense-button {
       height: 1.25rem;
@@ -78,6 +82,17 @@
       background: #689F38;
     }
 @media all and (min-width: 1024px) {
+#expense-header {
+  width: 100%;
+  top: 0;
+  z-index: 5;
+  background: #FFC107;
+}
+  #expense-header > div {
+    width: 960px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
 #content {
   width: 960px;
 }

@@ -20,8 +20,6 @@ func BalanceInquiry(i string) {
 	} else {
 		Connect().Model(new(Expenses)).Select("SUM(income)").Where("user_id = ?", u.ID).Row().Scan(&u.Balance)
 	}
-	println(u.ID)
-	println(u.Balance)
 	Connect().Model(&Users{ID: i}).Update(u).Close()
 }
 
