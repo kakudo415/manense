@@ -22,6 +22,11 @@ func GetExpense(UUID uint64) (e Expenses) {
 	return e
 }
 
+// UpdateExpense func
+func UpdateExpense(ex Expenses) {
+	Connect().Model(&Expenses{UUID: ex.UUID}).Update(&ex).Close()
+}
+
 // EraseExpense func
 func EraseExpense(exID uint64) {
 	var e = new(Expenses)

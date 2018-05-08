@@ -10,6 +10,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"time"
 
 	"../orm"
 	"../session"
@@ -90,6 +91,34 @@ func New(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Update Expense
+func Update(w http.ResponseWriter, r *http.Request) {
+	if session.Exist(w, r) && r.Method == "POST" {
+		r.ParseForm()
+		var uuid, e = strconv.ParseUint(r.Form["expense-uuid"][0], 10, 64)
+		if e != nil {
+			w.WriteHeader(400)
+			w.Write([]byte(""))
+			return
+		}
+		var ex = orm.GetExpense(uuid)
+		ex.Name = r.Form["expense-name"][0]
+		ex.Income, e = strconv.ParseInt(r.Form["expense-income"][0], 10, 64)
+		if e != nil {
+			w.WriteHeader(400)
+			w.Write([]byte(""))
+			return
+		}
+		ex.Time, e = time.Parse("2006-01-02", r.Form["expense-time"][0])
+		if e != nil {
+			w.WriteHeader(400)
+			w.Write([]byte(""))
+			return
+		}
+		orm.UpdateExpense(ex)
+	}
+}
+
 // Erase Expense
 func Erase(w http.ResponseWriter, r *http.Request) {
 	if session.Exist(w, r) && r.Method == "POST" {
@@ -106,6 +135,21 @@ func Erase(w http.ResponseWriter, r *http.Request) {
 		u.Balance -= eraseExpense.Income
 		u.Update()
 		w.Write([]byte(strconv.FormatInt(u.Balance, 10)))
+	}
+}
+
+// Info Expense
+func Info(w http.ResponseWriter, r *http.Request) {
+	if session.Exist(w, r) && r.Method == "POST" {
+		r.ParseForm()
+		var i, e = strconv.ParseUint(r.Form["expense-uuid"][0], 10, 64)
+		if e != nil {
+			w.WriteHeader(400)
+			w.Write([]byte(""))
+			return
+		}
+		var b, _ = json.Marshal(orm.GetExpense(i))
+		w.Write(b)
 	}
 }
 

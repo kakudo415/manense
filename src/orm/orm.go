@@ -23,13 +23,13 @@ type Users struct {
 
 // Expenses M
 type Expenses struct {
-	UUID uint64 `gorm:"primary_key"`
-	Name string `gorm:"not null"`
+	UUID uint64 `json:"UUID" gorm:"primary_key"`
+	Name string `json:"Name" gorm:"not null"`
 
-	Income int64  `gorm:"not null"`
-	UserID string `gorm:"not null"`
+	Income int64  `json:"Income" gorm:"not null"`
+	UserID string `json:"UserID" gorm:"not null"`
 
-	Time time.Time `gorm:"not null"`
+	Time time.Time `json:"Time" gorm:"not null"`
 }
 
 func init() {

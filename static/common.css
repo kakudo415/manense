@@ -16,33 +16,14 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: inherit;
 }
 html {
+  height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", sans-serif;
   font-size: 16px;
 }
-/* HEADER CSS */
-#header {
-  background: #FFC107;
+body {
+  height: 100%;
+  position: relative;
 }
-  #header > div {
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-  }
-  #header > div > *:first-child {
-    margin: 0 auto 0 0;
-  }
-@media all and (min-width: 1024px) {
-  #header > div {
-    max-width: 960px;
-    padding: 1rem;
-  }
-}
-@media all and (max-width: 1023px) {
-html {
-  font-size: 14px;
-}
-  #header > div {
-    width: 100%;
-    padding: .5rem;
-  }
+img {
+  display: block;
 }

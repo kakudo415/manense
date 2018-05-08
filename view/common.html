@@ -5,14 +5,4 @@
 {{ end }}
 
 {{ define "HEADER" }}
-<div id="header">
-  <div>
-    <a href="{{ .Common.URL }}">{{ .Common.Name }} OßT</a>
-    {{ if .User.ID }}
-    <a href="/signout">Sign out</a>
-    {{ else }}
-    <a href="{{ .Common.AURL }}">Sign in</a>
-    {{ end }}
-  </div>
-</div>
 {{ end }}

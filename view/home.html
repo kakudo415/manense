@@ -6,28 +6,35 @@
   <title>{{ .Common.Name }}</title>
 </head>
 <body>
-  {{ template "HEADER" . }}
-  {{ if .User.ID }}
-  <div id="expense-header">
-    <div>
-      <span>{{ .User.Name }}</span>
-      <span id="balance">{{ .User.Balance }} 円</span>
-    </div>
-  </div>
   <div id="content">
-    <div id="new-expense">
-      <input type="text" name="expense-name" autocomplete="off" placeholder="内容" id="expense-name">
-      <input type="number" name="expense-income" autocomplete="off" placeholder="金額" id="expense-income">
-      <button onclick="newExpense();" id="expense-button"></button>
+    <div id="type">
+      <span>名前</span>
+      <span>年月日</span>
+      <span>金額</span>
     </div>
-    <div id="expenses">
-    {{ range .Expenses }}
-      <div id="{{ .UUID }}" class="expense"><span class="expense-name">{{ .Name }}</span><span class="expense-time">{{ .Time.Year }} {{ .Time.Month }} {{ .Time.Day }}</span><span class="expense-income">{{ .Income }} 円</span><button class="expense-erase" onclick="eraseExpense('{{ .UUID }}');"></button></div>
+    <div id="exs">
+    {{ if .User.ID }}
+      {{ range .Expenses }}
+      <a id="{{ .UUID }}" class="ex" onclick="exMenu('{{.UUID}}', true);"><span>{{.Name}}</span><span>{{.Time.Year}} {{.Time.Month}} {{.Time.Day}}</span><span>{{.Income}}</span></a>
+      {{ end }}
+    {{ else }}
     {{ end }}
     </div>
-    <script src="/static/home.js"></script>
-  {{ else }}
-  {{ end }}
   </div>
+  <div id="edit">
+    <div>
+      <div id="editHeader">
+        <a class="close" onclick="exMenu('', false);"><img src="/static/clear.svg" alt="X"></a>
+        <input type="text" id="editName">
+        <a class="editButton exSave" onclick="exSave();">保存</a>
+        <a class="editButton exErase" onclick="exErase();">削除</a>
+      </div>
+      <div id="editContent">
+        <input type="number" id="editIncome">
+        <input type="date" id="editTime">
+      </div>
+    </div>
+  </div>
+<script src="/static/home.js"></script>
 </body>
 </html>
