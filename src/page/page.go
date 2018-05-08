@@ -83,11 +83,13 @@ func New(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte(""))
 			return
 		}
-		var ne = orm.NewExpense(session.Get(w, r), r.Form["expense-name"][0], i)
+		var ne = orm.NewExpense(session.Get(w, r), r.Form["expense-name"][0], i, r.Form["expense-time"][0])
 		var u = orm.GetUser(session.Get(w, r))
 		u.Balance += i
 		u.Update()
-		w.Write([]byte(fmt.Sprintf("{ \"uuid\": \"%d\", \"time\": \"%d %s %d\", \"balance\": \"%d\" }", ne.UUID, ne.Time.Year(), ne.Time.Month().String(), ne.Time.Day(), u.Balance)))
+		print(ne.UUID)
+		println(u.Balance)
+		w.Write([]byte(fmt.Sprintf("{ \"uuid\": \"%d\", \"balance\": \"%d\" }", ne.UUID, u.Balance)))
 	}
 }
 

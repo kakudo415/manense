@@ -5,12 +5,12 @@ import (
 )
 
 // NewExpense func
-func NewExpense(userID string, name string, income int64) (e Expenses) {
+func NewExpense(userID string, name string, income int64, timeStr string) (e Expenses) {
 	e.UUID = UUID()
 	e.Name = name
 	e.Income = income
 	e.UserID = userID
-	e.Time = time.Now()
+	e.Time, _ = time.Parse("2006-01-02", timeStr)
 	Connect().FirstOrCreate(&e).Close()
 	return e
 }
