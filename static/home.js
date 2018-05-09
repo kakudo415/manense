@@ -63,9 +63,8 @@ function exErase() {
   AJAX.send('expense-uuid=' + currentID);
   AJAX.onreadystatechange = () => {
     if (AJAX.readyState == 4 && AJAX.status == 200) {
-      console.log(currentID);
-      exMenu('', false);
       document.getElementById(currentID).style.display = 'none';
+      exMenu('', false);
     }
   }
 }

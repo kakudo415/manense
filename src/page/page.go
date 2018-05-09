@@ -87,8 +87,6 @@ func New(w http.ResponseWriter, r *http.Request) {
 		var u = orm.GetUser(session.Get(w, r))
 		u.Balance += i
 		u.Update()
-		print(ne.UUID)
-		println(u.Balance)
 		w.Write([]byte(fmt.Sprintf("{ \"uuid\": \"%d\", \"balance\": \"%d\" }", ne.UUID, u.Balance)))
 	}
 }
