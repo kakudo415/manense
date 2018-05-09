@@ -13,14 +13,10 @@ func (u Users) Update() {
 // BalanceInquiry func
 func BalanceInquiry(i string) {
 	var u = GetUser(i)
-	var c uint
-	Connect().Model(new(Expenses)).Select("COUNT(*)").Where("user_id = ?", u.ID).Row().Scan(&c)
-	if c == 0 {
-		u.Balance = 0
-	} else {
-		Connect().Model(new(Expenses)).Select("SUM(income)").Where("user_id = ?", u.ID).Row().Scan(&u.Balance)
-	}
-	Connect().Model(&Users{ID: i}).Update(u).Close()
+	var b int
+	Connect().Model(new(Expenses)).Select("SUM(income)").Where("user_id = ?", u.ID).Row().Scan(&b)
+	u.Balance = int64(b)
+	Connect().Model(&Users{ID: i}).Update(&u).Close()
 }
 
 // GetUser func
