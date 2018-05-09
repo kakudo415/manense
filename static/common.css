@@ -27,3 +27,15 @@ body {
 img {
   display: block;
 }
+
+/* Header */
+#header {
+  font-size: 14px;
+}
+  #header > div {
+    height: 3em;
+    padding: 0 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }

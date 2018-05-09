@@ -116,6 +116,9 @@ func Update(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		orm.UpdateExpense(ex)
+		orm.BalanceInquiry(session.Get(w, r))
+		var u = orm.GetUser(session.Get(w, r))
+		w.Write([]byte(strconv.FormatInt(u.Balance, 10)))
 	}
 }
 
@@ -129,11 +132,9 @@ func Erase(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte(""))
 			return
 		}
-		var eraseExpense = orm.GetExpense(i)
 		orm.EraseExpense(i)
 		var u = orm.GetUser(session.Get(w, r))
-		u.Balance -= eraseExpense.Income
-		u.Update()
+		orm.BalanceInquiry(session.Get(w, r))
 		w.Write([]byte(strconv.FormatInt(u.Balance, 10)))
 	}
 }

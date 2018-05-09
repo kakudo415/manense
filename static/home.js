@@ -1,4 +1,5 @@
 'use strict';
+var balanceHTML = document.getElementById('balance');
 var editHTML = document.getElementById('edit');
 var editNameHTML = document.getElementById('editName');
 var editIncomeHTML = document.getElementById('editIncome');
@@ -38,6 +39,8 @@ function exSave() {
     AJAX.send('expense-uuid=' + currentID + '&expense-name=' + editNameHTML.value + '&expense-income=' + editIncomeHTML.value + '&expense-time=' + editTimeHTML.value);
     AJAX.onreadystatechange = () => {
       if (AJAX.readyState == 4 && AJAX.status == 200) {
+        document.getElementById(currentID).innerHTML = `<span>${editNameHTML.value}</span><span>${editTimeHTML.value}</span><span>${editIncomeHTML.value}</span>`;
+        balanceHTML.innerText = "残高 : " + AJAX.responseText;
         exMenu('', false);
       }
     }
@@ -47,9 +50,9 @@ function exSave() {
     AJAX.send('expense-name=' + editNameHTML.value + '&expense-income=' + editIncomeHTML.value + '&expense-time=' + editTimeHTML.value);
     AJAX.onreadystatechange = () => {
       if (AJAX.readyState == 4 && AJAX.status == 200) {
-        console.log(AJAX.responseText);
         var data = JSON.parse(AJAX.responseText);
-        document.getElementById('exs').innerHTML = `<a id=${data.uuid} class="ex" onclick="exMenu("${data.uuid}", true);"><span>${editNameHTML.value}</a>` + document.getElementById('exs').innerHTML;
+        document.getElementById('exs').innerHTML = `<a id=${data.uuid} class="ex" onclick="exMenu('${data.uuid}', true);"><span>${editNameHTML.value}</span><span>${editTimeHTML.value}</span><span>${editIncomeHTML.value}</span></a>` + document.getElementById('exs').innerHTML;
+        balanceHTML.innerText = "残高 : " + data.balance;
         exMenu('', false);
       }
     }
@@ -64,6 +67,7 @@ function exErase() {
   AJAX.onreadystatechange = () => {
     if (AJAX.readyState == 4 && AJAX.status == 200) {
       document.getElementById(currentID).style.display = 'none';
+      balanceHTML.innerText = "残高 : " + AJAX.responseText;
       exMenu('', false);
     }
   }

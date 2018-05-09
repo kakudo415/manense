@@ -7,7 +7,12 @@
 {{ define "HEADER" }}
 <div id="header">
   <div>
-    <a onclick="exMenu('', true);">+</a>
+    <a href="{{ .Common.URL }}">manense OßT</a>
+    {{ if .User.ID }}
+    <a href="/signout">Signout</a>
+    {{ else }}
+    <a href="{{ .Common.AURL }}">Signin</a>
+    {{ end}}
   </div>
 </div>
 {{ end }}

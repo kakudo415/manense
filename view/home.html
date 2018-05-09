@@ -7,6 +7,12 @@
 </head>
 <body>
   {{ template "HEADER" . }}
+  <div id="infoBar">
+    <div>
+      <a class="add" onclick="exMenu('', true);"><img src="/static//add.svg" alt="ADD"></a>
+      <div id="balance">残高 : {{ .User.Balance }}</div>
+    </div>
+  </div>
   <div id="content">
     <div id="type">
       <span>名前</span>
@@ -16,7 +22,7 @@
     <div id="exs">
     {{ if .User.ID }}
       {{ range .Expenses }}
-      <a id="{{ .UUID }}" class="ex" onclick="exMenu('{{.UUID}}', true);"><span>{{.Name}}</span><span>{{.Time.Year}} {{.Time.Month}} {{.Time.Day}}</span><span>{{.Income}}</span></a>
+      <a id="{{ .UUID }}" class="ex" onclick="exMenu('{{.UUID}}', true);"><span>{{.Name}}</span><span>{{.Time.Year}}-{{.Time.Month | printf "%02d"}}-{{.Time.Day | printf "%02d"}}</span><span>{{.Income}}</span></a>
       {{ end }}
     {{ else }}
     {{ end }}
