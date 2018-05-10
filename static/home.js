@@ -40,8 +40,16 @@ function exSave() {
     AJAX.send('expense-uuid=' + currentID + '&expense-name=' + editNameHTML.value + '&expense-income=' + editIncomeHTML.value + '&expense-time=' + editTimeHTML.value);
     AJAX.onreadystatechange = () => {
       if (AJAX.readyState == 4 && AJAX.status == 200) {
-        document.getElementById(currentID).innerHTML = `<span>${editNameHTML.value}</span><span>${editTimeHTML.value}</span><span>${editIncomeHTML.value}</span>`;
-        balanceHTML.innerText = '残高 : ' + AJAX.responseText;
+        if (editIncomeHTML.value >= 0) {
+          document.getElementById(currentID).innerHTML = `<span>${editNameHTML.value}</span><span>${editTimeHTML.value}</span><span>${editIncomeHTML.value} 円</span>`;
+        } else {
+          document.getElementById(currentID).innerHTML = `<span>${editNameHTML.value}</span><span>${editTimeHTML.value}</span><span class="minus">${editIncomeHTML.value} 円</span>`;
+        }
+        if (Number(AJAX.responseText) >= 0) {
+          balanceHTML.innerHTML = `残高 : ${AJAX.responseText} 円`;
+        } else {
+          balanceHTML.innerHTML = `残高 : <span class="minus">${AJAX.responseText}</span> 円`;
+        }
         exMenu('', false);
       }
     }
@@ -52,8 +60,16 @@ function exSave() {
     AJAX.onreadystatechange = () => {
       if (AJAX.readyState == 4 && AJAX.status == 200) {
         var data = JSON.parse(AJAX.responseText);
-        document.getElementById('exs').innerHTML = `<a id=${data.uuid} class="ex" onclick="exMenu('${data.uuid}', true);"><span>${editNameHTML.value}</span><span>${editTimeHTML.value}</span><span>${editIncomeHTML.value}</span></a>` + document.getElementById('exs').innerHTML;
-        balanceHTML.innerText = '残高 : ' + data.balance;
+        if (editIncomeHTML.value >= 0) {
+          document.getElementById('exs').innerHTML = `<a id=${data.uuid} class="ex" onclick="exMenu('${data.uuid}', true);"><span>${editNameHTML.value}</span><span>${editTimeHTML.value}</span><span>${editIncomeHTML.value} 円</span></a>` + document.getElementById('exs').innerHTML;
+        } else {
+          document.getElementById('exs').innerHTML = `<a id=${data.uuid} class="ex" onclick="exMenu('${data.uuid}', true);"><span>${editNameHTML.value}</span><span>${editTimeHTML.value}</span><span class="minus">${editIncomeHTML.value} 円</span></a>` + document.getElementById('exs').innerHTML;
+        }
+        if (Number(data.balance) >= 0) {
+          balanceHTML.innerHTML = `残高 : ${data.balance} 円`;
+        } else {
+          balanceHTML.innerHTML = `残高 : <span class="minus">${data.balance}</span> 円`;
+        }
         exMenu('', false);
       }
     }
@@ -68,8 +84,11 @@ function exErase() {
   AJAX.onreadystatechange = () => {
     if (AJAX.readyState == 4 && AJAX.status == 200) {
       document.getElementById(currentID).style.display = 'none';
-      console.log(AJAX.responseText);
-      balanceHTML.innerText = '残高 : ' + AJAX.responseText;
+      if (Number(AJAX.responseText) >= 0) {
+        balanceHTML.innerText = '残高 : ' + AJAX.responseText + ' 円';
+      } else {
+        balanceHTML.innerHTML = `残高 : <span class="minus">${AJAX.responseText}</span> 円`;
+      }
       exMenu('', false);
     }
   }

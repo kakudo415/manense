@@ -84,6 +84,9 @@ body {
       #exs > a.ex > span:nth-child(3) {
         right: 1em;
       }
+      .minus {
+        color: #F44336;
+      }
 #edit {
   height: 100%;
   width: 100%;

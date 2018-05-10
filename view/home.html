@@ -11,7 +11,7 @@
   <div id="infoBar">
     <div>
       <a class="add" onclick="exMenu('', true);"><img src="/static//add.svg" alt="ADD"></a>
-      <div id="balance">残高 : {{ .Balance }} 円</div>
+      <div id="balance">残高 : <span {{if lt .Balance 0}}class="minus"{{end}}>{{ .Balance }} 円</span></div>
     </div>
   </div>
   <div id="content">
@@ -22,7 +22,7 @@
     </div>
     <div id="exs">
       {{ range .Expenses }}
-      <a id="{{ .UUID }}" class="ex" onclick="exMenu('{{.UUID}}', true);"><span>{{.Name}}</span><span>{{.Time.Year}}-{{.Time.Month | printf "%02d"}}-{{.Time.Day | printf "%02d"}}</span><span>{{.Income}} 円</span></a>
+      <a id="{{ .UUID }}" class="ex" onclick="exMenu('{{.UUID}}', true);"><span>{{.Name}}</span><span>{{.Time.Year}}-{{.Time.Month | printf "%02d"}}-{{.Time.Day | printf "%02d"}}</span><span {{if lt .Income 0}}class="minus"{{end}}>{{.Income}} 円</span></a>
       {{ end }}
     </div>
   </div>
