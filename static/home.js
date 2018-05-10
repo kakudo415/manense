@@ -67,6 +67,7 @@ function exErase() {
   AJAX.onreadystatechange = () => {
     if (AJAX.readyState == 4 && AJAX.status == 200) {
       document.getElementById(currentID).style.display = 'none';
+      console.log(AJAX.responseText);
       balanceHTML.innerText = "残高 : " + AJAX.responseText;
       exMenu('', false);
     }

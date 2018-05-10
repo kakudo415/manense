@@ -17,8 +17,6 @@ type Users struct {
 	FName  string `json:"family_name"`
 	Icon   string `json:"picture"`
 	Locale string `json:"locale"`
-
-	Balance int64
 }
 
 // Expenses M

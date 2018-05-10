@@ -27,6 +27,7 @@ type HomeView struct {
 	}
 	User     orm.Users
 	Expenses []orm.Expenses
+	Balance  int64
 }
 
 // OtherView data
@@ -52,6 +53,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		var userID = session.Get(w, r)
 		v.User = orm.GetUser(userID)
 		v.Expenses = orm.GetExpenseList(userID)
+		v.Balance = orm.Balance(orm.GetUser(session.Get(w, r)).ID)
 		sort.Slice(v.Expenses, func(i, j int) bool { return v.Expenses[i].Time.After(v.Expenses[j].Time) })
 	}
 	t.Execute(w, v)
@@ -85,9 +87,8 @@ func New(w http.ResponseWriter, r *http.Request) {
 		}
 		var ne = orm.NewExpense(session.Get(w, r), r.Form["expense-name"][0], i, r.Form["expense-time"][0])
 		var u = orm.GetUser(session.Get(w, r))
-		u.Balance += i
 		u.Update()
-		w.Write([]byte(fmt.Sprintf("{ \"uuid\": \"%d\", \"balance\": \"%d\" }", ne.UUID, u.Balance)))
+		w.Write([]byte(fmt.Sprintf("{ \"uuid\": \"%d\", \"balance\": \"%d\" }", ne.UUID, orm.Balance(orm.GetUser(session.Get(w, r)).ID))))
 	}
 }
 
@@ -116,9 +117,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		orm.UpdateExpense(ex)
-		orm.BalanceInquiry(session.Get(w, r))
-		var u = orm.GetUser(session.Get(w, r))
-		w.Write([]byte(strconv.FormatInt(u.Balance, 10)))
+		w.Write([]byte(strconv.FormatInt(orm.Balance(orm.GetUser(session.Get(w, r)).ID), 10)))
 	}
 }
 
@@ -133,9 +132,7 @@ func Erase(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		orm.EraseExpense(i)
-		var u = orm.GetUser(session.Get(w, r))
-		orm.BalanceInquiry(session.Get(w, r))
-		w.Write([]byte(strconv.FormatInt(u.Balance, 10)))
+		w.Write([]byte(strconv.FormatInt(orm.Balance(orm.GetUser(session.Get(w, r)).ID), 10)))
 	}
 }
 
@@ -182,7 +179,6 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		}
 		u.New()
 		u.Update()
-		orm.BalanceInquiry(u.ID)
 		session.New(w, r, u.ID)
 	}
 	http.Redirect(w, r, "/", http.StatusFound)
