@@ -30,9 +30,16 @@ type Expenses struct {
 	Time time.Time `json:"Time" gorm:"not null"`
 }
 
+// Follows M
+type Follows struct {
+	SubID string
+	ObjID string
+}
+
 func init() {
 	Connect().AutoMigrate(new(Users)).Close()
 	Connect().AutoMigrate(new(Expenses)).AddForeignKey("user_id", "users(id)", "CASCADE", "CASCADE").Close()
+	Connect().AutoMigrate(new(Follows)).AddForeignKey("sub_id", "users(id)", "CASCADE", "CASCADE").AddForeignKey("obj_id", "users(id)", "CASCADE", "CASCADE").Close()
 }
 
 // Connect GORM

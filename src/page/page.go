@@ -40,6 +40,7 @@ type OtherView struct {
 	User     orm.Users
 	Other    orm.Users
 	Expenses []orm.Expenses
+	Balance  int64
 }
 
 // Home page
@@ -68,9 +69,19 @@ func Other(w http.ResponseWriter, r *http.Request) {
 	v.Common.AURL = oauth.AuthCodeURL(oauth.RedirectURL)
 	if session.Exist(w, r) {
 		var userID = session.Get(w, r)
-		v.User = orm.GetUser(userID)
-		v.Other = orm.GetUser(strings.TrimPrefix(r.URL.Path, "/other/"))
-		v.Expenses = orm.GetExpenseList(v.Other.ID)
+		var otherID = strings.TrimPrefix(r.URL.Path, "/o/")
+		if orm.IsFollow(userID, otherID) {
+			v.User = orm.GetUser(userID)
+			v.Other = orm.GetUser(otherID)
+			v.Expenses = orm.GetExpenseList(v.Other.ID)
+			v.Balance = orm.Balance(otherID)
+			println("O")
+		} else {
+			println("X")
+			http.Redirect(w, r, "/", http.StatusFound)
+		}
+	} else {
+		http.Redirect(w, r, "/", http.StatusFound)
 	}
 	t.Execute(w, v)
 }

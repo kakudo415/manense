@@ -15,7 +15,7 @@ func main() {
 	http.HandleFunc("/update", page.Update)
 	http.HandleFunc("/erase", page.Erase)
 	http.HandleFunc("/info", page.Info)
-	http.HandleFunc("/other/", page.Other)
+	http.HandleFunc("/o/", page.Other)
 	http.HandleFunc("/signin", page.Signin)
 	http.HandleFunc("/signout", page.Signout)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))

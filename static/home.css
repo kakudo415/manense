@@ -1,4 +1,8 @@
+body {
+  background: rgba(0, 0, 0, .05);
+}
 #infoBar {
+  background: #FFF;
   font-size: 14px;
 }
   #infoBar > div {
@@ -25,11 +29,9 @@
         width: 2em;
         padding: .25em;
       }
-
-#content {
-  min-height: 100%;
-  background: rgba(0, 0, 0, .05);
-}
+    #infoBar > div > #balance {
+      margin: 0 0 0 auto;
+    }
   #content > div {
     max-width: 960px;
     margin: 0 auto;
@@ -37,7 +39,6 @@
   #type {
     height: 3em;
     padding: 1em;
-    background: transparent;
     font-size: .875rem;
     position: relative;
   }
