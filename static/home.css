@@ -4,6 +4,7 @@ body {
 #infoBar {
   background: #FFF;
   font-size: 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, .05);
 }
   #infoBar > div {
     height: 3em;
@@ -169,3 +170,67 @@ body {
         border-radius: .25rem;
         text-align: right;
       }
+@media all and (max-width: 1024px) {
+  #infoBar > div {
+    padding: .5em;
+  }
+  #type {
+    display: none;
+  }
+      #exs > a.ex {
+        height: 3.5em;
+      }
+      #exs > a.ex > span {
+        top: .5em;
+      }
+      #exs > a.ex > span:nth-child(1) {
+        left: .5em;
+      }
+      #exs > a.ex > span:nth-child(2) {
+        top: 2em;
+        left: .5em;
+        color: rgba(0, 0, 0, .5);
+      }
+      #exs > a.ex > span:nth-child(3) {
+        right: .5em;
+      }
+  #edit > div {
+    padding: .5rem 0;
+  }
+    #editHeader {
+      height: 2.5rem;
+      margin: 0 0 .5rem;
+      display: block;
+    }
+      #editHeader > .close {
+        position: absolute;
+        left: .5em;
+      }
+      #editHeader > #editName {
+        width: calc(100% - 1.5em - 2.5rem);
+        position: absolute;
+        right: .5em;
+      }
+      #editHeader > #exSave {
+        width: calc(50% - .75em);
+        display: block;
+        position: absolute;
+        top: 9.5em;
+        left: .5em;
+      }
+      #editHeader > #exErase {
+        width: calc(50% - .75em);
+        display: block;
+        position: absolute;
+        top: 9.5em;
+        right: .5em;
+      }
+    #editContent {
+      padding: 0 .5em;
+      display: block;
+    }
+      #editContent > input {
+        width: 100%;
+        margin: 0 0 .5em;
+      }
+}

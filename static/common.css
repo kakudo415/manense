@@ -40,3 +40,9 @@ img {
     align-items: center;
     justify-content: space-between;
   }
+@media all and (max-width: 1024px) {
+  #header > div {
+    height: 2em;
+    padding: .5em;
+  }
+}
