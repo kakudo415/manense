@@ -42,7 +42,7 @@ img {
   }
 @media all and (max-width: 1024px) {
   #header > div {
-    height: 2em;
+    max-width: unset;
     padding: .5em;
   }
 }

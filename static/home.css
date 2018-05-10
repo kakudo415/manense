@@ -172,10 +172,14 @@ body {
       }
 @media all and (max-width: 1024px) {
   #infoBar > div {
+    max-width: unset;
     padding: .5em;
   }
   #type {
     display: none;
+  }
+  #content > #exs {
+    max-width: unset;
   }
       #exs > a.ex {
         height: 3.5em;
@@ -195,6 +199,7 @@ body {
         right: .5em;
       }
   #edit > div {
+    max-width: unset;
     padding: .5rem 0;
   }
     #editHeader {
