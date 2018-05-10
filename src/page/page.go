@@ -75,9 +75,7 @@ func Other(w http.ResponseWriter, r *http.Request) {
 			v.Other = orm.GetUser(otherID)
 			v.Expenses = orm.GetExpenseList(v.Other.ID)
 			v.Balance = orm.Balance(otherID)
-			println("O")
 		} else {
-			println("X")
 			http.Redirect(w, r, "/", http.StatusFound)
 		}
 	} else {
