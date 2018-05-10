@@ -24,6 +24,7 @@ function exMenu(exID, on) {
         }
       }
     } else {
+      editTimeHTML.value = nowString();
       editHTML.style.display = 'block';
     }
   } else {
@@ -40,7 +41,7 @@ function exSave() {
     AJAX.onreadystatechange = () => {
       if (AJAX.readyState == 4 && AJAX.status == 200) {
         document.getElementById(currentID).innerHTML = `<span>${editNameHTML.value}</span><span>${editTimeHTML.value}</span><span>${editIncomeHTML.value}</span>`;
-        balanceHTML.innerText = "残高 : " + AJAX.responseText;
+        balanceHTML.innerText = '残高 : ' + AJAX.responseText;
         exMenu('', false);
       }
     }
@@ -52,7 +53,7 @@ function exSave() {
       if (AJAX.readyState == 4 && AJAX.status == 200) {
         var data = JSON.parse(AJAX.responseText);
         document.getElementById('exs').innerHTML = `<a id=${data.uuid} class="ex" onclick="exMenu('${data.uuid}', true);"><span>${editNameHTML.value}</span><span>${editTimeHTML.value}</span><span>${editIncomeHTML.value}</span></a>` + document.getElementById('exs').innerHTML;
-        balanceHTML.innerText = "残高 : " + data.balance;
+        balanceHTML.innerText = '残高 : ' + data.balance;
         exMenu('', false);
       }
     }
@@ -68,8 +69,23 @@ function exErase() {
     if (AJAX.readyState == 4 && AJAX.status == 200) {
       document.getElementById(currentID).style.display = 'none';
       console.log(AJAX.responseText);
-      balanceHTML.innerText = "残高 : " + AJAX.responseText;
+      balanceHTML.innerText = '残高 : ' + AJAX.responseText;
       exMenu('', false);
     }
   }
+}
+
+function nowString() {
+  var date = new Date();
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
+  function digit(n, d) {
+    n += '';
+    if (n.length < d) {
+      n = '0' + n;
+    }
+    return n;
+  }
+  return digit(year, 4) + '-' + digit(month, 2) + '-' + digit(day, 2);
 }
