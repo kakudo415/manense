@@ -48,7 +48,7 @@ function exSave() {
         if (Number(AJAX.responseText) >= 0) {
           balanceHTML.innerHTML = `残高 : ${AJAX.responseText} 円`;
         } else {
-          balanceHTML.innerHTML = `残高 : <span class="minus">${AJAX.responseText}</span> 円`;
+          balanceHTML.innerHTML = `残高 : <span class="minus">${AJAX.responseText} 円</span>`;
         }
         exMenu('', false);
       }
@@ -68,7 +68,7 @@ function exSave() {
         if (Number(data.balance) >= 0) {
           balanceHTML.innerHTML = `残高 : ${data.balance} 円`;
         } else {
-          balanceHTML.innerHTML = `残高 : <span class="minus">${data.balance}</span> 円`;
+          balanceHTML.innerHTML = `残高 : <span class="minus">${data.balance} 円</span>`;
         }
         exMenu('', false);
       }
@@ -87,7 +87,7 @@ function exErase() {
       if (Number(AJAX.responseText) >= 0) {
         balanceHTML.innerText = '残高 : ' + AJAX.responseText + ' 円';
       } else {
-        balanceHTML.innerHTML = `残高 : <span class="minus">${AJAX.responseText}</span> 円`;
+        balanceHTML.innerHTML = `残高 : <span class="minus">${AJAX.responseText} 円</span>`;
       }
       exMenu('', false);
     }
