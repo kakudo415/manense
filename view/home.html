@@ -10,7 +10,7 @@
   {{ if .User.ID }}
   <div id="infoBar">
     <div>
-      <a class="add" onclick="exMenu('', true);"><img src="/static/add.svg" alt="ADD"></a>
+      <a class="add" onclick="exMenu('', true);"><img src="{{ .Common.URL }}/static/add.svg" alt="ADD"></a>
       <div id="balance">残高 : <span {{if lt .Balance 0}}class="minus"{{end}}>{{ .Balance }} 円</span></div>
     </div>
   </div>
