@@ -33,6 +33,7 @@ func Erase(w http.ResponseWriter, r *http.Request) {
 	var s = GetSession(r)
 	s.Options = &sessions.Options{MaxAge: -1}
 	s.Save(r, w)
+	println(Exist(w, r))
 }
 
 // Exist Session
