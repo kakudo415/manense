@@ -12,6 +12,7 @@ var name = "MANENSE_SESSION"
 // GetSession func
 func GetSession(r *http.Request) *sessions.Session {
 	var s, _ = store.Get(r, name)
+	s.Options = &sessions.Options{Path: "/"}
 	return s
 }
 
@@ -19,7 +20,6 @@ func GetSession(r *http.Request) *sessions.Session {
 func New(w http.ResponseWriter, r *http.Request, i string) {
 	var s = GetSession(r)
 	s.Values["ID"] = i
-	s.Options = &sessions.Options{Path: "/"}
 	s.Save(r, w)
 }
 
