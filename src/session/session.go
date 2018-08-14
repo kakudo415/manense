@@ -18,6 +18,7 @@ func GetSession(r *http.Request) *sessions.Session {
 // New Session
 func New(w http.ResponseWriter, r *http.Request, i string) {
 	var s = GetSession(r)
+	s.Options = &sessions.Options{Path: "/"}
 	s.Values["ID"] = i
 	s.Save(r, w)
 }
@@ -31,11 +32,8 @@ func Get(w http.ResponseWriter, r *http.Request) string {
 // Erase Session
 func Erase(w http.ResponseWriter, r *http.Request) {
 	var s = GetSession(r)
-	s.Options = &sessions.Options{MaxAge: -1}
-	if e := s.Save(r, w); e != nil {
-		println(e)
-	}
-	println(Exist(w, r))
+	s.Options = &sessions.Options{MaxAge: -1, Path: "/"}
+	s.Save(r, w)
 }
 
 // Exist Session
