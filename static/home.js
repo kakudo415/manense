@@ -11,7 +11,7 @@ function exMenu(exID, on) {
   if (on) {
     if (currentID.length > 0) {
       var AJAX = new XMLHttpRequest();
-      AJAX.open('POST', '/info', true);
+      AJAX.open('POST', './info', true);
       AJAX.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       AJAX.send('expense-uuid=' + exID);
       AJAX.onreadystatechange = () => {
@@ -35,7 +35,7 @@ function exMenu(exID, on) {
 function exSave() {
   var AJAX = new XMLHttpRequest();
   if (currentID.length > 0) {
-    AJAX.open('POST', '/update', true);
+    AJAX.open('POST', './update', true);
     AJAX.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     AJAX.send('expense-uuid=' + currentID + '&expense-name=' + editNameHTML.value + '&expense-income=' + editIncomeHTML.value + '&expense-time=' + editTimeHTML.value);
     AJAX.onreadystatechange = () => {
@@ -54,7 +54,7 @@ function exSave() {
       }
     }
   } else {
-    AJAX.open('POST', '/new', true);
+    AJAX.open('POST', './new', true);
     AJAX.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     AJAX.send('expense-name=' + editNameHTML.value + '&expense-income=' + editIncomeHTML.value + '&expense-time=' + editTimeHTML.value);
     AJAX.onreadystatechange = () => {
@@ -78,7 +78,7 @@ function exSave() {
 
 function exErase() {
   var AJAX = new XMLHttpRequest();
-  AJAX.open('POST', '/erase', true);
+  AJAX.open('POST', './erase', true);
   AJAX.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   AJAX.send('expense-uuid=' + currentID);
   AJAX.onreadystatechange = () => {
