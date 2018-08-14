@@ -19,6 +19,7 @@ func GetSession(r *http.Request) *sessions.Session {
 func New(w http.ResponseWriter, r *http.Request, i string) {
 	var s = GetSession(r)
 	s.Values["ID"] = i
+	s.Options = &sessions.Options{Path: "/"}
 	s.Save(r, w)
 }
 
@@ -42,5 +43,5 @@ func Exist(w http.ResponseWriter, r *http.Request) bool {
 }
 
 func init() {
-	store.Options = &sessions.Options{Path: "/", MaxAge: 60 * 60 * 24 * 7}
+	store.Options = &sessions.Options{MaxAge: 60 * 60 * 24 * 7}
 }
