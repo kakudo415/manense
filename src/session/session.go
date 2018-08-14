@@ -12,7 +12,6 @@ var name = "MANENSE_SESSION"
 // GetSession func
 func GetSession(r *http.Request) *sessions.Session {
 	var s, _ = store.Get(r, name)
-	s.Options = &sessions.Options{Path: "/"}
 	return s
 }
 
@@ -32,7 +31,7 @@ func Get(w http.ResponseWriter, r *http.Request) string {
 // Erase Session
 func Erase(w http.ResponseWriter, r *http.Request) {
 	var s = GetSession(r)
-	s.Options = &sessions.Options{MaxAge: -1}
+	s.Options = &sessions.Options{Path: "/", MaxAge: -1}
 	s.Save(r, w)
 }
 
@@ -43,5 +42,5 @@ func Exist(w http.ResponseWriter, r *http.Request) bool {
 }
 
 func init() {
-	store.Options = &sessions.Options{MaxAge: 60 * 60 * 24 * 7}
+	store.Options = &sessions.Options{Path: "/", MaxAge: 60 * 60 * 24 * 7}
 }
