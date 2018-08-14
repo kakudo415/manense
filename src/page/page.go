@@ -76,10 +76,10 @@ func Other(w http.ResponseWriter, r *http.Request) {
 			v.Expenses = orm.GetExpenseList(v.Other.ID)
 			v.Balance = orm.Balance(otherID)
 		} else {
-			http.Redirect(w, r, "/", http.StatusFound)
+			http.Redirect(w, r, os.Getenv("MANENSE_URL"), http.StatusFound)
 		}
 	} else {
-		http.Redirect(w, r, "/", http.StatusFound)
+		http.Redirect(w, r, os.Getenv("MANENSE_URL"), http.StatusFound)
 	}
 	t.Execute(w, v)
 }
@@ -175,7 +175,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		var u orm.Users
 		token, err := oauth.Exchange(oauth2.NoContext, c)
 		if err != nil {
-			http.Redirect(w, r, "/", http.StatusFound)
+			http.Redirect(w, r, os.Getenv("MANENSE_URL"), http.StatusFound)
 			return
 		}
 		client := oauth.Client(oauth2.NoContext, token)
@@ -183,18 +183,18 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		value, err := ioutil.ReadAll(res.Body)
 		err = json.Unmarshal(value, &u)
 		if err != nil {
-			http.Redirect(w, r, "/", http.StatusFound)
+			http.Redirect(w, r, os.Getenv("MANENSE_URL"), http.StatusFound)
 			return
 		}
 		u.New()
 		u.Update()
 		session.New(w, r, u.ID)
 	}
-	http.Redirect(w, r, "/", http.StatusFound)
+	http.Redirect(w, r, os.Getenv("MANENSE_URL"), http.StatusFound)
 }
 
 // Signout func
 func Signout(w http.ResponseWriter, r *http.Request) {
 	session.Erase(w, r)
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+	http.Redirect(w, r, os.Getenv("MANENSE_URL"), http.StatusSeeOther)
 }
