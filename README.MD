@@ -1,2 +1,0 @@
-# manense
-## manage expense
