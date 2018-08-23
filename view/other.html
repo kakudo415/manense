@@ -2,12 +2,11 @@
 <html lang="ja">
 <head>
   {{ template "META" . }}
-  <link rel="stylesheet" href="{{ .Common.URL }}/static/home.css">
+  <link rel="stylesheet" href="{{ .Common.URL }}static/home.css">
   <title>{{ .Common.Name }}</title>
 </head>
 <body>
-  {{ template "HEADER" . }}
-  {{ if .User.ID }}
+  {{ template "HEADER" . }} {{ if .User.ID }}
   <div id="infoBar">
     <div>
       <div id="balance">残高 : {{ .Balance }} 円</div>
@@ -22,9 +21,7 @@
     <div id="exs">
       {{ range .Expenses }}
       <a id="{{ .UUID }}" class="ex" style="cursor: unset"><span>{{.Name}}</span><span>{{.Time.Year}}-{{.Time.Month | printf "%02d"}}-{{.Time.Day | printf "%02d"}}</span><span>{{.Income}} 円</span></a>
-      {{ end }}
-  {{ else }}
-  {{ end }}
+      {{ end }} {{ else }} {{ end }}
     </div>
   </div>
 </body>

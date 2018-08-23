@@ -2,16 +2,15 @@
 <html lang="ja">
 <head>
   {{ template "META" . }}
-  <link rel="stylesheet" href="{{ .Common.URL }}/static/home.css">
+  <link rel="stylesheet" href="{{ .Common.URL }}static/home.css">
   <title>{{ .Common.Name }}</title>
 </head>
 <body>
-  {{ template "HEADER" . }}
-  {{ if .User.ID }}
+  {{ template "HEADER" . }} {{ if .User.ID }}
   <div id="infoBar">
     <div>
-      <a class="add" onclick="exMenu('', true);"><img src="{{ .Common.URL }}/static/add.svg" alt="ADD"></a>
-      <div id="balance">残高 : <span {{if lt .Balance 0}}class="minus"{{end}}>{{ .Balance }} 円</span></div>
+      <a class="add" onclick="exMenu('', true);"><img src="{{ .Common.URL }}static/add.svg" alt="ADD"></a>
+      <div id="balance">残高 : <span {{if lt .Balance 0}}class="minus" {{end}}>{{ .Balance }} 円</span></div>
     </div>
   </div>
   <div id="content">
@@ -22,14 +21,14 @@
     </div>
     <div id="exs">
       {{ range .Expenses }}
-      <a id="{{ .UUID }}" class="ex" onclick="exMenu('{{.UUID}}', true);"><span>{{.Name}}</span><span>{{.Time.Year}}-{{.Time.Month | printf "%02d"}}-{{.Time.Day | printf "%02d"}}</span><span {{if lt .Income 0}}class="minus"{{end}}>{{.Income}} 円</span></a>
+      <a id="{{ .UUID }}" class="ex" onclick="exMenu('{{.UUID}}', true);"><span>{{.Name}}</span><span>{{.Time.Year}}-{{.Time.Month | printf "%02d"}}-{{.Time.Day | printf "%02d"}}</span><span {{if lt .Income 0}}class="minus" {{end}}>{{.Income}} 円</span></a>
       {{ end }}
     </div>
   </div>
   <div id="edit">
     <div>
       <div id="editHeader">
-        <a class="close" onclick="exMenu('', false);"><img src="{{ .Common.URL }}/static/clear.svg" alt="X"></a>
+        <a class="close" onclick="exMenu('', false);"><img src="{{ .Common.URL }}static/clear.svg" alt="X"></a>
         <input type="text" id="editName" autocomplete="off" placeholder="入出金の名前">
         <a id="exSave" class="editButton exSave" onclick="exSave();">保存</a>
         <a id="exErase" class="editButton exErase" onclick="exErase();">削除</a>
@@ -40,8 +39,6 @@
       </div>
     </div>
   </div>
-  <script src="{{ .Common.URL }}/static/home.js"></script>
-  {{ else }}
-  {{ end }}
+  <script src="{{ .Common.URL }}static/home.js"></script> {{ else }} {{ end }}
 </body>
 </html>

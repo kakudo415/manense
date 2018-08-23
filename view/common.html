@@ -4,9 +4,9 @@
 <link rel="stylesheet" href="{{ .Common.URL }}/static/common.css"> {{ end }} {{ define "HEADER" }}
 <div id="header">
   <div>
-    <a href="{{ .Common.URL }}/">manense OBT</a>
+    <a href="{{ .Common.URL }}">manense OBT</a>
     {{ if .User.ID }}
-    <a href="{{ .Common.URL }}/signout">Signout</a>
+    <a href="{{ .Common.URL }}signout">Signout</a>
     {{ else }}
     <a href="{{ .Common.AURL }}">Signin</a>
     {{ end}}
