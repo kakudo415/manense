@@ -32,14 +32,18 @@ img {
   font-size: 14px;
   background: #FFF;
 }
-  #header > div {
-    height: 3em;
-    max-width: 960px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+#header > div {
+  height: 3em;
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#header > div > div {
+  display: flex;
+  align-items: center;
+}
 @media all and (max-width: 1024px) {
   #header > div {
     max-width: unset;
