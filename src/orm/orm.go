@@ -44,7 +44,7 @@ func init() {
 
 // Connect GORM
 func Connect() *gorm.DB {
-	var c, e = gorm.Open("mysql", os.Getenv("MANENSE_DATABASE"))
+	var c, e = gorm.Open("mysql", os.Getenv("MANENSE_DB"))
 	if e != nil {
 		panic(e)
 	}
