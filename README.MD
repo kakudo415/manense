@@ -6,6 +6,12 @@ manage expense
 
 It may need `go get -u github.com/go-sql-driver/mysql`
 
+### Setup Database
+
+```
+CREATE DATABASE DB_NAME;
+```
+
 ### Environment Variables
 
 ```
